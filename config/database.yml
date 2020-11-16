@@ -9,18 +9,24 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   encoding: unicode
+  username: <%= ENV['DB_USERNAME'] || 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] || 5432 %>
+  pool: <%= ENV['DB_POOL'] || 27 %>
+  connect_timeout: <%= ENV['DB_CONNECTION_TIMEOUT'] || 30 %>
 
 development:
   <<: *default
-  database: chat_development
+  database: <%= database: ENV.fetch("DB_NAME") || "chat_development" %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: chat_test
+  database:  <%= database: ENV.fetch("DB_NAME") || "chat_test" %>
 
 production:
   <<: *default
-  database: chat_production
+  database:  <%= database: ENV.fetch("DB_NAME") || "chat_production" %>

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    app: chat-app
+    component: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-app
+      component: web
+  template:
+    metadata:
+      labels:
+        app: chat-app
+        component: web
+    spec:
+      containers:
+        - name: web
+          image: bcmehrman/chat-rails-app:0.0.1
+          env:
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres
+                  key: database
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: password
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: user
+          envFrom:
+            - configMapRef:
+                name: ruby
+          command: ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
