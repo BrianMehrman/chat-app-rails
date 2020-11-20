@@ -6,12 +6,13 @@ RUN apt update && \
     echo 'deb https://deb.nodesource.com/node_12.x stretch main' >> /etc/apt/sources.list && \
     curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     apt update && \
-    apt install -y clamdscan \
-                   nodejs \
+    apt install -y nodejs \
                    postgresql-client \
                    openssl \
                    imagemagick && \
     rm -rf /var/lib/apt/lists/*
+
+WORKDIR /
 
 COPY Gemfile* /
 COPY .gemrc /

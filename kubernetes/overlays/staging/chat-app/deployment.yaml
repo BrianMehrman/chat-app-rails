@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   name: web
   labels:
-    app: chat-app
+    app: recipe-box
     component: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chat-app
+      app: recipe-box
       component: web
   template:
     metadata:
       labels:
-        app: chat-app
+        app: recipe-box
         component: web
     spec:
       containers:
         - name: web
-          image: bcmehrman/chat-rails-app:0.0.1
+          image: bcmehrman/chat-app-rails:0.0.1
           env:
             - name: DB_NAME
               valueFrom:

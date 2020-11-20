@@ -3,18 +3,18 @@ kind: Deployment
 metadata:
   name: redis
   labels:
-    app: recipe_box
+    app: recipe-box
     component: redis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: recipe_box
+      app: recipe-box
       component: redis
   template:
     metadata:
       labels:
-        app: recipe_box
+        app: recipe-box
         component: redis
     spec:
       containers:
